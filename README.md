@@ -34,5 +34,4 @@
 https://github.com/yueyongyue/saltshaker_api
 
 ### Orginal creator
-### Saltshaker Exchange Learning QQ Group: 622806083
-![image](https://github.com/yueyongyue/saltshaker_api/blob/master/screenshots/qq.png)
+https://github.com/yueyongyue/
