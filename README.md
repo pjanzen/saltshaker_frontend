@@ -1,37 +1,38 @@
 ### Saltshaker_plus Frontend
 
-#### **要求 Vue.js > 2.0**
-#### **要求 Node = 8.11.3 LTS**
+#### **Install Vue.js > 2.0**
+#### **Install Node = 8.11.3 LTS**
 
 ````
-1. 安装依赖
+1. Dependencies
 
     #npm install
 ````
 ````
-2. 部署
+2. Run
 
     #npm run dev
 ````
 ````
-3. 编译
+3. Compile
 
-    修改 src/config/Global.vue 下serverSrc参数,对应自己的服务器域名或地址
-    
-    修改 build/webpack.prod.config.js 下publicPath参数,对应自己的服务器域名或地址
-    
+    Modify src/config/Global.vue ServerSrc parameter, set to salt-api url
+
+    Modify build/webpack.prod.config.js The publicPath parameter, where you want to deply the site
+
     #npm run build
 ````
 ````
-4. 静态文件
+4. Webserver file
 
-   修改 nginx.conf 下proxy_pass的参数, 对应自己的服务器域名或地址
-   
-   生成的静态文件在dist目录下面，可使用Nginx等Web服务器进行部署
+   Modify nginx.conf Set proxy_pass to the saltshaker_api url
+
+   Modify location to point to the dist dir.
 ````
 
-### 后端saltshaker_api项目，使用时请确保版本一一对应
+### Backend saltshaker_api project, please ensure that the version corresponds with the saltshaker_frontend version.
 https://github.com/yueyongyue/saltshaker_api
 
-### Saltshaker 交流学习QQ群:622806083
+### Orginal creator
+### Saltshaker Exchange Learning QQ Group: 622806083
 ![image](https://github.com/yueyongyue/saltshaker_api/blob/master/screenshots/qq.png)
