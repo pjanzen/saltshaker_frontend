@@ -14,7 +14,7 @@
                         <div style="float: right;" >
                             <slot name="create"></slot>
                             <slot name="downMenu"></slot>
-                            <Button type="primary" @click="refresh()">刷新</Button>
+                            <Button type="primary" @click="refresh()">Refresh</Button>
                         </div>
                     </Row>
                     <Row>
@@ -45,7 +45,7 @@
                                     {{fileContent}}
                                     </highlight-code>
                                 </FormItem>
-                                <Button type="dashed" :disabled="editDisabled" @click="handleEdit()" slot="commitButton">编辑</Button>
+                                <Button type="dashed" :disabled="editDisabled" @click="handleEdit()" slot="commitButton">edit</Button>
                             </common-execute>
                         </Col>
                     </Row>
@@ -69,8 +69,8 @@
                 >
             </MonacoEditor>
             <div slot="footer">
-                <Button type="text" @click="handleCancel">取消</Button>
-                <Button type="success" @click="handleCommit">提交</Button>
+                <Button type="text" @click="handleCancel">cancel</Button>
+                <Button type="success" @click="handleCommit">submit</Button>
             </div>
         </Modal>
 
@@ -324,7 +324,7 @@
                         if (res.data['status'] === true) {
                             this.result = res.data['data'];
                             this.edit = false;
-                            this.$Message.success('成功！');
+                            this.$Message.success('success! ');
                             // 调用hook进行更新
                             this.handleHook();
                         } else {

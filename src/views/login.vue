@@ -8,63 +8,63 @@
             <Card :bordered="false">
                 <p slot="title">
                     <Icon type="log-in"></Icon>
-                    欢迎使用
+                    welcome
                 </p>
                 <div class="form-con">
                     <Tabs v-model="tab" :style="[h]">
-                        <TabPane label="登录" name="login">
+                        <TabPane label="login" name="login">
                             <Form ref="loginForm" :model="form" :rules="rules">
                                 <FormItem prop="userName">
-                                    <Input v-model="form.userName" placeholder="请输入用户名">
+                                    <Input v-model="form.userName" placeholder="Username">
                                         <span slot="prepend">
                                             <Icon :size="16" type="person"></Icon>
                                         </span>
                                     </Input>
                                 </FormItem>
                                 <FormItem prop="password">
-                                    <Input type="password" v-model="form.password" placeholder="请输入密码">
+                                    <Input type="password" v-model="form.password" placeholder="Password">
                                         <span slot="prepend">
                                             <Icon :size="16" type="locked"></Icon>
                                         </span>
                                     </Input>
                                 </FormItem>
                                 <FormItem>
-                                    <Button @click="handleSubmit" type="primary" long>登录</Button>
+                                    <Button @click="handleSubmit" type="primary" long>Login</Button>
                                 </FormItem>
                             </Form>
                         </TabPane>
-                        <TabPane label="注册" name="register">
+                        <TabPane label="Register" name="register">
                             <Form ref="registerForm" :model="registerForm" :rules="registerRules">
                                 <FormItem prop="userName">
-                                    <Input v-model="registerForm.userName" placeholder="请输入用户名">
+                                    <Input v-model="registerForm.userName" placeholder="Username">
                                         <span slot="prepend">
                                             <Icon :size="16" type="person"></Icon>
                                         </span>
                                     </Input>
                                 </FormItem>
                                  <FormItem prop="mail">
-                                     <Input v-model="registerForm.mail" placeholder="请输入邮箱">
+                                     <Input v-model="registerForm.mail" placeholder="Email">
                                         <span slot="prepend">
                                             <Icon :size="16" type="email"></Icon>
                                         </span>
                                      </Input>
                                 </FormItem>
                                 <FormItem prop="password">
-                                    <Input type="password" v-model="registerForm.password" placeholder="请输入密码，至少6位字符" >
+                                    <Input type="password" v-model="registerForm.password" placeholder="Password" >
                                         <span slot="prepend">
                                             <Icon :size="16" type="locked"></Icon>
                                         </span>
                                     </Input>
                                 </FormItem>
                                 <FormItem prop="rePassword">
-                                    <Input type="password" v-model="registerForm.rePassword" placeholder="请再次输入密码" >
+                                    <Input type="password" v-model="registerForm.rePassword" placeholder="Retype password" >
                                         <span slot="prepend">
                                             <Icon :size="16" type="unlocked"></Icon>
                                         </span>
                                     </Input>
                                 </FormItem>
                                 <FormItem>
-                                    <Button @click="handleRegister" type="primary" long>注册</Button>
+                                    <Button @click="handleRegister" type="primary" long>Register</Button>
                                 </FormItem>
                             </Form>
                         </TabPane>
@@ -100,10 +100,10 @@ export default {
             },
             rules: {
                 userName: [
-                    { required: true, message: '用户名不能为空', trigger: 'blur' }
+                    { required: true, message: 'Username can not be empty', trigger: 'blur' }
                 ],
                 password: [
-                    { required: true, message: '密码不能为空', trigger: 'blur' }
+                    { required: true, message: 'Password can not be empty', trigger: 'blur' }
                 ]
             },
             registerForm: {
@@ -113,19 +113,19 @@ export default {
             },
             registerRules: {
                 userName: [
-                    { required: true, message: '用户名不能为空', trigger: 'blur' }
+                    { required: true, message: 'Username can not be empty', trigger: 'blur' }
                 ],
                 password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' },
-                    { min: 6, message: '请至少输入6个字符', trigger: 'blur' }
+                    { required: true, message: 'Please enter your password', trigger: 'blur' },
+                    { min: 6, message: 'Please enter at least 6 characters', trigger: 'blur' }
                 ],
                 rePassword: [
-                    { required: true, message: '请再次输入密码', trigger: 'blur' },
+                    { required: true, message: 'Please enter your password again', trigger: 'blur' },
                     { validator: valideRePassword, trigger: 'blur' }
                 ],
                 mail: [
-                    { required: true, message: '邮箱不能为空', trigger: 'blur' },
-                    { type: 'email', message: '无效的邮箱格式', trigger: 'blur' }
+                    { required: true, message: 'E-mail can not be empty', trigger: 'blur' },
+                    { type: 'email', message: 'Invalid email address', trigger: 'blur' }
                 ]
             }
         };
@@ -174,7 +174,7 @@ export default {
                                     name: 'home_index'
                                 });
                             } else {
-                                this.nError('登录失败:', res.data['message']);
+                                this.nError('Login failed:', res.data['message']);
                             }
                         },
                         err => {
@@ -184,7 +184,7 @@ export default {
                             } catch (error) {
                                 errInfo = err;
                             }
-                            this.nError('登录失败:', errInfo);
+                            this.nError('Login failed:', errInfo);
                         });
                 }
             });
@@ -204,11 +204,11 @@ export default {
                     this.axios.post(this.Global.serverSrc + 'user/register', postData).then(
                         res => {
                             if (res.data['status'] === true) {
-                                this.$Message.success('注册成功！');
+                                this.$Message.success('registration success! ');
                                 this.tab = 'login';
                                 this.$refs['registerForm'].resetFields();
                             } else {
-                                this.nError('注册失败:', res.data['message']);
+                                this.nError('registration failed:', res.data['message']);
                             }
                         },
                         err => {
@@ -218,7 +218,7 @@ export default {
                             } catch (error) {
                                 errInfo = err;
                             }
-                            this.nError('注册失败:', errInfo);
+                            this.nError('registration failed:', errInfo);
                         });
                 }
             });
@@ -238,7 +238,7 @@ export default {
                     if (res.data['status'] === true) {
                         this.publicKey = res.data['data'];
                     } else {
-                        this.nError('加密失败:', res.data['message']);
+                        this.nError('Registration failed to encrypt:', res.data['message']);
                     }
                 },
                 err => {
@@ -248,7 +248,7 @@ export default {
                     } catch (error) {
                         errInfo = err;
                     }
-                    this.nError('加密失败:', errInfo);
+                    this.nError('Encryption failed:', errInfo);
                 });
         }
     }

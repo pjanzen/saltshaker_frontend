@@ -12,7 +12,7 @@
                             <Option v-for="item in productData" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
                         <div style="float: right;" >
-                            <Button type="primary" @click="refresh()">刷新</Button>
+                            <Button type="primary" @click="refresh()">Refresh</Button>
                         </div>
                     </Row>
                     <Row>
@@ -22,47 +22,47 @@
                         <Col span="24">
                             <Card dis-hover>
                                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="47">
-                                    <FormItem label="目标" prop="target">
+                                    <FormItem label="target" prop="target">
                                         <CheckboxGroup v-model="formValidate.target">
                                             <Table size="small" width="100%"  border :columns="columnsTarget" :data="targetData" stripe></Table>
                                         </CheckboxGroup>
                                     </FormItem>
-                                    <FormItem label="命令" prop="command">
-                                        <Input v-model="formValidate.command" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="输入shell命令"></Input>
+                                    <FormItem label="command " prop="command">
+                                        <Input v-model="formValidate.command" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter shell command"></Input>
                                     </FormItem>
                                     <FormItem>
-                                        <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
-                                        <Button type="ghost" @click="handleReset('formValidate')">重置</Button>
+                                        <Button type="primary" @click="handleSubmit('formValidate')">submit</Button>
+                                        <Button type="ghost" @click="handleReset('formValidate')">Reset</Button>
                                         <div style="float: right">
                                             <Poptip placement="top-end" width="700">
-                                                <Button type="ghost" @click="handleHistory">历史命令</Button>
+                                                <Button type="ghost" @click="handleHistory">Historical order</Button>
                                                 <div class="api" slot="content">
                                                     <div style="padding-bottom: 5px">
-                                                        <Input v-model="searchConName" icon="search" @on-change="handleSearch" placeholder="请输入历史命令" style="width: 200px" />
+                                                        <Input v-model="searchConName" icon="search" @on-change="handleSearch" placeholder="Please enter a history command" style="width: 200px" />
                                                     </div>
                                                     <Table size="small" width="100%" height="190" border :columns="columnsHistory" :data="historyData" stripe></Table>
                                                 </div>
                                              </Poptip>
                                         </div>
                                     </FormItem>
-                                    <FormItem label="结果">
+                                    <FormItem label="result">
                                         <Spin size="large" fix v-if="spinShow"></Spin>
                                         <Alert :type="summaryType">
                                             <ul>
                                                 <li>
-                                                    总数： {{result.total}}
+                                                    total: {{result.total}}
                                                 </li>
                                                 <li>
-                                                    成功： {{result.succeed}}
+                                                    success: {{result.succeed}}
                                                 </li>
                                                 <li>
-                                                    失败： {{result.failure}}
+                                                    failure: {{result.failure}}
                                                 </li>
                                                 <li>
-                                                    失败主机： {{result.failure_minion}}
+                                                    Failed host: {{result.failure_minion}}
                                                 </li>
                                                 <li>
-                                                    命令： {{result.command}}
+                                                    command: {{result.command}}
                                                 </li>
                                             </ul>
                                         </Alert>
@@ -105,15 +105,15 @@ Minion: {{minion}}
                 target: [],
                 ruleValidate: {
                     command: [
-                        { required: true, message: '请输入命令', trigger: 'blur' }
+                        { required: true, message: 'Please enter a command', trigger: 'blur' }
                     ],
                     target: [
-                        { required: true, type: 'array', message: '请勾选主机或者分组', trigger: 'change' }
+                        { required: true, type: 'array', message: 'Please tick the host or group', trigger: 'change' }
                     ]
                 },
                 columnsTarget: [
                     {
-                        title: '分组',
+                        title: 'Name',
                         key: 'name',
                         width: 200,
                         render: (h, params) => {
@@ -124,7 +124,6 @@ Minion: {{minion}}
                                     },
                                     nativeOn: {
                                         click: () => {
-                                            // 点击已经勾选的组,去除勾选的组及对应的minion
                                             if (this.formValidate.target.includes(params.row.name)) {
                                                 this.formValidate.target.splice(this.formValidate.target.indexOf(params.row.name), 1);
                                                 // 索引位置变化,采用逆向循环,达到数组去掉另一个数组元素的目的
@@ -136,7 +135,6 @@ Minion: {{minion}}
                                                     }
                                                 }
                                             } else {
-                                                // 点击没有勾选的组,勾选上组及对应的minion
                                                 this.formValidate.target.push(params.row.name);
                                                 this.formValidate.target = this.formValidate.target.concat(params.row.minion);
                                             }
@@ -147,7 +145,7 @@ Minion: {{minion}}
                         }
                     },
                     {
-                        title: '主机',
+                        title: 'Host',
                         key: 'minion',
                         render: (h, params) => {
                             return h('div', params.row.minion.map(item => {
@@ -164,13 +162,12 @@ Minion: {{minion}}
                 targetData: [],
                 columnsHistory: [
                     {
-                        title: '命令',
+                        title: 'command ',
                         key: 'command',
                         render: (h, params) => {
                             return h('div', {
                                 on: {
                                     'dblclick': () => {
-                                        // 双击历史命令填充到命令行表单
                                         this.formValidate.command = params.row.command;
                                     }
                                 }
@@ -178,12 +175,12 @@ Minion: {{minion}}
                         }
                     },
                     {
-                        title: '用户',
+                        title: 'User',
                         key: 'username',
                         width: 180
                     },
                     {
-                        title: '时间',
+                        title: 'Time',
                         key: 'time',
                         width: 160
                     }
@@ -318,7 +315,7 @@ Minion: {{minion}}
                                 this.nError('Execute Failure', errInfo);
                             });
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data!');
                     }
                 });
             },

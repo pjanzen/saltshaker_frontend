@@ -10,46 +10,46 @@
                     <Col span="24">
                         <Card dis-hover>
                             <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="47">
-                                <FormItem label="目标" prop="target">
+                                <FormItem label="Target" prop="target">
                                     <CheckboxGroup v-model="formValidate.target">
                                         <Table size="small" width="100%" border :columns="columnsTarget" :data="targetData"></Table>
                                     </CheckboxGroup>
                                 </FormItem>
                                 <slot name="command"></slot>
                                 <FormItem>
-                                    <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
-                                    <Button type="ghost" @click="handleReset('formValidate')">重置</Button>
+                                    <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
+                                    <Button type="ghost" @click="handleReset('formValidate')">Reset</Button>
                                     <slot name="commitButton"></slot>
                                     <div style="float: right">
                                         <Poptip placement="top-end" width="700">
-                                            <Button type="ghost" @click="handleHistory">历史命令</Button>
+                                            <Button type="ghost" @click="handleHistory">Historical order</Button>
                                             <div class="api" slot="content">
                                                 <div style="padding-bottom: 5px">
-                                                    <Input v-model="searchConName" icon="search" @on-change="handleSearch" placeholder="请输入历史命令" style="width: 200px" />
+                                                    <Input v-model="searchConName" icon="search" @on-change="handleSearch" placeholder="Please enter a history command" style="width: 200px" />
                                                 </div>
                                                 <Table size="small" width="100%" height="190" border :columns="columnsHistory" :data="historyData"></Table>
                                             </div>
                                          </Poptip>
                                     </div>
                                 </FormItem>
-                                <FormItem label="结果">
+                                <FormItem label="Result">
                                     <Spin size="large" fix v-if="spinShow"></Spin>
                                     <Alert :type="summaryType">
                                         <ul>
                                             <li>
-                                                总数： {{result.total}}
+                                                Total: {{result.total}}
                                             </li>
                                             <li>
-                                                成功： {{result.succeed}}
+                                                Succeed: {{result.succeed}}
                                             </li>
                                             <li>
-                                                失败： {{result.failure}}
+                                                Failures： {{result.failure}}
                                             </li>
                                             <li>
-                                                失败主机： {{result.failure_minion}}
+                                                Failed minions： {{result.failure_minion}}
                                             </li>
                                             <li>
-                                                命令： {{result.command}}
+                                                Command： {{result.command}}
                                             </li>
                                         </ul>
                                     </Alert>
@@ -90,15 +90,15 @@ Minion: {{minion}}
                 target: [],
                 ruleValidate: {
                     command: [
-                        { required: true, message: '请输选择要执行的SLS', trigger: 'blur' }
+                        { required: true, message: 'Please select the SLS to be executed', trigger: 'blur' }
                     ],
                     target: [
-                        { required: true, type: 'array', message: '请勾选主机或者分组', trigger: 'change' }
+                        { required: true, type: 'array', message: 'Please tick the host or group', trigger: 'change' }
                     ]
                 },
                 columnsTarget: [
                     {
-                        title: '分组',
+                        title: 'Grouping',
                         key: 'name',
                         width: 200,
                         render: (h, params) => {
@@ -132,7 +132,7 @@ Minion: {{minion}}
                         }
                     },
                     {
-                        title: '主机',
+                        title: 'Host',
                         key: 'minion',
                         render: (h, params) => {
                             return h('div', params.row.minion.map(item => {
@@ -149,16 +149,16 @@ Minion: {{minion}}
                 targetData: [],
                 columnsHistory: [
                     {
-                        title: '命令',
+                        title: 'command',
                         key: 'command'
                     },
                     {
-                        title: '用户',
+                        title: 'user',
                         key: 'username',
                         width: 180
                     },
                     {
-                        title: '时间',
+                        title: 'time',
                         key: 'time',
                         width: 160
                     }
@@ -313,7 +313,7 @@ Minion: {{minion}}
                                 this.nError('Execute Failure', errInfo);
                             });
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data!');
                     }
                 });
             },

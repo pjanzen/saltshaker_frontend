@@ -3,7 +3,7 @@
         <Row class="margin-top-10">
             <Card dis-hover>
                 <p slot="title">
-                    系统工具
+                    System Tool
                 </p>
                 <Table :columns="columns" :data="jobData" :border="true"></Table>
             </Card>
@@ -17,30 +17,30 @@
                 jobData: this.tableList(),
                 columns: [
                     {
-                        title: '服务',
+                        title: 'service',
                         key: 'service'
                     },
                     {
-                        title: '状态',
+                        title: 'status',
                         key: 'status',
                         render: (h, params) => {
                             let tagColor = 'green';
                             let info = '';
                             if (params.row.status === 'Down') {
                                 tagColor = 'red';
-                                info = '失败';
+                                info = 'failure';
                             }
                             if (params.row.status === 'Up') {
                                 tagColor = 'green';
-                                info = '正常';
+                                info = 'normal';
                             }
                             if (params.row.status === 'Missing') {
                                 tagColor = 'yellow';
-                                info = '缺失';
+                                info = 'missing';
                             }
                             if (params.row.status === 'More') {
                                 tagColor = 'yellow';
-                                info = '过多';
+                                info = 'excessive';
                             }
                             return h('div', [
                                 h('Tag', {
@@ -67,7 +67,7 @@
                         }
                     },
                     {
-                        title: '操作',
+                        title: 'option',
                         key: 'option',
                         render: (h, params) => {
                             let start = true;
@@ -92,7 +92,7 @@
                                             this.handleEvent('start');
                                         }
                                     }
-                                }, '启动'),
+                                }, 'start up'),
                                 h('Button', {
                                     props: {
                                         type: 'error',
@@ -107,7 +107,7 @@
                                             this.handleEvent('stop');
                                         }
                                     }
-                                }, '停止')
+                                }, 'stop')
                             ]);
                         }
                     }
@@ -144,7 +144,7 @@
                 this.axios.get(this.Global.serverSrc + 'sse?action=' + action).then(
                     res => {
                         if (res.data['status'] === true) {
-                            this.$Message.success('成功！');
+                            this.$Message.success('success! ');
                             this.tableList();
                         } else {
                             this.nError('Event Action Failure', res.data['message']);

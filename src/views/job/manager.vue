@@ -1,7 +1,7 @@
 <template>
     <div>
         <common-table :cColumns="cColumns" :apiService="apiService" ref="childrenMethods" :productShow="true"></common-table>
-        <Modal width="650px" v-model="showInfo" title="返回结果" >
+        <Modal width="650px" v-model="showInfo" title="Return result" >
             <pre style="overflow:auto">
 {{result}}
             </pre>
@@ -32,17 +32,19 @@
                         title: 'Job ID',
                         key: 'Jid',
                         sortable: true,
-                        width: 195
+                        width: 175
                     },
                     {
-                        title: '用户名',
+                        title: 'User',
                         key: 'User',
-                        sortable: true
+                        sortable: true,
+                        width: 85
                     },
                     {
-                        title: 'Minion:PPid',
+                        title: 'Minion / PPid',
                         key: 'Running',
                         sortable: true,
+                        width: 275,
                         render: (h, params) => {
                             return h('ul', params.row.Running.map(item => {
                                 return h('li', {
@@ -56,20 +58,18 @@
                         }
                     },
                     {
-                        title: '功能',
+                        title: 'Function',
                         key: 'Function',
+                        sortable: true,
+                        width: 110
+                    },
+                    {
+                        title: 'Arguments',
+                        key: 'Arguments',
                         sortable: true
                     },
                     {
-                        title: '参数',
-                        key: 'Arguments',
-                        sortable: true,
-                        render: (h, params) => {
-                            return params.row.Arguments[0];
-                        }
-                    },
-                    {
-                        title: '时间',
+                        title: 'StartTime',
                         key: 'StartTime',
                         sortable: true,
                         render: (h, params) => {
@@ -77,16 +77,16 @@
                         }
                     },
                     {
-                        title: '操作',
+                        title: 'Action',
                         key: 'action',
-                        width: 70,
+                        width: 100,
                         align: 'center',
                         render: (h, params) => {
                             return h('div', [
                                 h('Poptip', {
                                     props: {
                                         confirm: true,
-                                        title: '确定要Kill ' + params.row.Jid + ' 吗?',
+                                        title: 'Really Kill JobID: ' + params.row.Jid + ' ?',
                                         transfer: true,
                                         placement: 'top-end'
                                     },

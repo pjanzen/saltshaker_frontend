@@ -6,22 +6,22 @@
             @getProductEvent="getProductEvent"
             :productShow="true"
             ref="childrenMethods">
-            <Button slot="create" type="primary" @click="sync()">同步Grains</Button>
+            <Button slot="create" type="primary" @click="sync()">Synchronize Grains</Button>
         </common-table>
-        <Modal width="650px" v-model="showInfo" title="详情" :styles="{top: '20px'}">
+        <Modal width="650px" v-model="showInfo" title="Details" :styles="{top: '20px'}">
             <highlight-code lang="json" style="overflow:auto" v-if="result">
                 {{result}}
             </highlight-code>
             <div slot="footer"></div>
         </Modal>
-        <Modal slot="option" v-model="syncHost" title="同步主机">
+        <Modal slot="option" v-model="syncHost" title="Synchronous host">
             <div style="text-align:center">
-                此功能会根据Minion状态同步Grains信息，以确保数据一致性
-                <Button type="success" size="small" @click="handleSync()">同步</Button>
+                This feature synchronizes Grains information based on Minion status to ensure data consistency
+                <Button type="success" size="small" @click="handleSync()">Synchronize</Button>
                 <Progress v-show="progress" :percent="percent" status="active"></Progress>
             </div>
             <div slot="footer">
-                <Button type="ghost" @click="handleCancel()" style="margin-left: 8px">取消</Button>
+                <Button type="ghost" @click="handleCancel()" style="margin-left: 8px">cancel</Button>
             </div>
         </Modal>
 </div>

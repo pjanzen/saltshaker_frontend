@@ -1,22 +1,22 @@
 <template>
     <div>
         <common-table :cColumns="cColumns" :apiService="apiService" @getProductEvent="getProductEvent" :productShow="false" ref="childrenMethods">
-            <Button slot="create" type="primary" @click="add('formValidate')">创建角色</Button>
+            <Button slot="create" type="primary" @click="add('formValidate')">Creating a Role</Button>
             <Modal slot="option" v-model="formView"  :title="optionTypeName">
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="60">
-                    <FormItem label="角色名" prop="name">
-                        <Input v-model="formValidate.name" placeholder="输入用户名"></Input>
+                    <FormItem label="Name" prop="name">
+                        <Input v-model="formValidate.name" placeholder="Enter role name"></Input>
                     </FormItem>
-                    <FormItem label="描述" prop="description">
-                        <Input v-model="formValidate.description" placeholder="输入描述"></Input>
+                    <FormItem label="Description" prop="description">
+                        <Input v-model="formValidate.description" placeholder="Role description"></Input>
                     </FormItem>
-                    <FormItem label="标识" prop="tag">
+                    <FormItem label="Tag" prop="tag">
                         <InputNumber v-model="formValidate.tag" :readonly="readonly" :min="20"></InputNumber>
                     </FormItem>
                 </Form>
                 <div slot="footer">
-                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
-                    <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
+                    <Button type="primary" @click="handleSubmit('formValidate')">submit</Button>
                 </div>
             </Modal>
         </common-table>
@@ -43,7 +43,7 @@
                 readonly: true,
                 cColumns: [
                     {
-                        title: '角色名',
+                        title: 'character name',
                         key: 'name',
                         sortable: true,
                         render: (h, params) => {
@@ -59,17 +59,17 @@
                         }
                     },
                     {
-                        title: '描述',
+                        title: 'description',
                         key: 'description',
                         sortable: true
                     },
                     {
-                        title: '标识',
+                        title: 'tag',
                         key: 'tag',
                         sortable: true
                     },
                     {
-                        title: '操作',
+                        title: 'action',
                         key: 'action',
                         width: 123,
                         align: 'center',
@@ -93,17 +93,17 @@
                                         click: () => {
                                             this.formView = true;
                                             this.optionType = 'edit';
-                                            this.optionTypeName = '编辑';
+                                            this.optionTypeName = 'edit';
                                             this.id = params.row.id;
                                             this.formValidate = params.row;
                                             this.readonly = true;
                                         }
                                     }
-                                }, '编辑'),
+                                }, 'edit'),
                                 h('Poptip', {
                                     props: {
                                         confirm: true,
-                                        title: '确定要删除 ' + params.row.name + ' 吗?',
+                                        title: 'Delete ' + params.row.name + ' ?',
                                         transfer: true,
                                         placement: 'top-end'
                                     },
@@ -121,7 +121,7 @@
                                             disabled: buttonDisabled,
                                             size: 'small'
                                         }
-                                    }, '删除')
+                                    }, 'delete')
                                 ])
                             ]);
                         }
@@ -135,10 +135,10 @@
                 },
                 ruleValidate: {
                     name: [
-                        { required: true, message: '角色名不能为空', trigger: 'blur' }
+                        { required: true, message: 'Role name cannot be empty', trigger: 'blur' }
                     ],
                     description: [
-                        { required: true, message: '描述不能为空', trigger: 'blur' }
+                        { required: true, message: 'Description cannot be empty', trigger: 'blur' }
                     ]
                 }
             };
@@ -164,7 +164,7 @@
             add (name) {
                 this.handleReset(name);
                 this.optionType = 'add';
-                this.optionTypeName = '添加';
+                this.optionTypeName = 'add';
                 this.formView = true;
                 this.readonly = false;
             },
@@ -179,7 +179,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Edit Failure', res.data['message']);
@@ -201,7 +201,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Add Failure', res.data['message']);
@@ -218,7 +218,7 @@
                                 });
                         }
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data! ');
                     }
                 });
             },

@@ -1,26 +1,26 @@
 <template>
     <div>
         <common-table :cColumns="cColumns" :apiService="apiService" :productShow="false" ref="childrenMethods">
-            <Button slot="create" type="primary" @click="add('formValidate')" v-show="access">创建用户</Button>
+            <Button slot="create" type="primary" @click="add('formValidate')" v-show="access">Create user</Button>
             <Modal slot="option" v-model="formView"  :title="optionTypeName" width="650px">
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="60">
-                    <FormItem label="用户名" prop="username" v-show="access">
-                        <Input v-model="formValidate.username" placeholder="输入用户名"></Input>
+                    <FormItem label="Username" prop="username" v-show="access">
+                        <Input v-model="formValidate.username" placeholder="Input username"></Input>
                     </FormItem>
-                    <FormItem label="邮箱" prop="mail" v-show="access">
-                        <Input v-model="formValidate.mail" placeholder="输入你的邮箱"></Input>
+                    <FormItem label="Email" prop="mail" v-show="access">
+                        <Input v-model="formValidate.mail" placeholder="Input email address"></Input>
                     </FormItem>
-                    <FormItem label="角色" prop="role" v-show="access">
+                    <FormItem label="Role" prop="role" v-show="access">
                         <CheckboxGroup v-model="formValidate.role">
                             <Checkbox v-for="item in userInfo.role" :key="item.id" :label="item.id" v-if="item.tag != 1">{{item.name}}</Checkbox>
                         </CheckboxGroup>
                     </FormItem>
-                    <FormItem label="产品线">
+                    <FormItem label="product line">
                         <CheckboxGroup v-model="formValidate.product">
                             <Checkbox v-for="item in userInfo.product" :key="item.id" :label="item.id" @click.prevent.native="handleCheckProduct(item.id)">{{item.name}}</Checkbox>
                         </CheckboxGroup>
                     </FormItem>
-                    <FormItem label="组" prop="groups">
+                    <FormItem label="Groups" prop="groups">
                         <Transfer
                             :data="originGroup"
                             :target-keys="targetGroup"
@@ -47,8 +47,8 @@
                     </FormItem>
                 </Form>
                 <div slot="footer">
-                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
-                    <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
+                    <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
                 </div>
             </Modal>
         </common-table>
@@ -86,7 +86,7 @@
                 },
                 cColumns: [
                     {
-                        title: '用户',
+                        title: 'Username',
                         key: 'username',
                         sortable: true,
                         render: (h, params) => {
@@ -102,12 +102,12 @@
                         }
                     },
                     {
-                        title: '邮箱',
+                        title: 'Email',
                         key: 'mail',
                         sortable: true
                     },
                     {
-                        title: '产品线',
+                        title: 'Product',
                         key: 'product',
                         sortable: true,
                         render: (h, params) => {
@@ -123,7 +123,7 @@
                         }
                     },
                     {
-                        title: '角色',
+                        title: 'Role',
                         key: 'role',
                         sortable: true,
                         render: (h, params) => {
@@ -166,7 +166,7 @@
                         }
                     },
                     {
-                        title: '组',
+                        title: 'Groups',
                         key: 'groups',
                         sortable: true,
                         render: (h, params) => {
@@ -193,7 +193,7 @@
                         }
                     },
                     {
-                        title: '操作',
+                        title: 'Action',
                         key: 'action',
                         width: 193,
                         align: 'center',
@@ -211,7 +211,7 @@
                                         click: () => {
                                             this.formView = true;
                                             this.optionType = 'edit';
-                                            this.optionTypeName = '编辑';
+                                            this.optionTypeName = 'edit';
                                             this.id = params.row.id;
                                             this.formValidate.username = params.row.username;
                                             this.formValidate.mail = params.row.mail;
@@ -227,11 +227,11 @@
                                             this.targetACL = params.row.acl.map(item => { return item.id; });
                                         }
                                     }
-                                }, '编辑'),
+                                }, 'edit'),
                                 h('Poptip', {
                                     props: {
                                         confirm: true,
-                                        title: '确定要删除 ' + params.row.username + ' 吗?',
+                                        title: 'Delete ' + params.row.username + ' ?',
                                         transfer: true,
                                         placement: 'top-end'
                                     },
@@ -252,12 +252,12 @@
                                         style: {
                                             marginRight: '5px'
                                         }
-                                    }, '删除')
+                                    }, 'delete')
                                 ]),
                                 h('Poptip', {
                                     props: {
                                         confirm: true,
-                                        title: '确定要重置 ' + params.row.username + ' 密码吗?',
+                                        title: 'Ok to reset ' + params.row.username + ' password?',
                                         transfer: true,
                                         placement: 'top-end'
                                     },
@@ -272,7 +272,7 @@
                                             type: 'default',
                                             size: 'small'
                                         }
-                                    }, '重置密码')
+                                    }, 'reset Password')
                                 ])
                             ]);
                         }
@@ -287,27 +287,27 @@
                 },
                 ruleValidate: {
                     username: [
-                        { required: true, message: '用户名不能为空', trigger: 'blur' }
+                        { required: true, message: 'Username can not be empty', trigger: 'blur' }
                     ],
                     mail: [
-                        { required: true, message: '邮箱不能为空', trigger: 'blur' },
-                        { type: 'email', message: '无效的邮箱格式', trigger: 'blur' }
+                        { required: true, message: 'E-mail can not be empty', trigger: 'blur' },
+                        { type: 'email', message: 'Invalid email address', trigger: 'blur' }
                     ],
                     product: [
-                        { required: true, type: 'array', min: 1, message: '至少选择一项', trigger: 'change' }
+                        { required: true, type: 'array', min: 1, message: 'Choose at least one', trigger: 'change' }
                     ]
                 },
                 // 穿梭框
                 originGroup: [],
                 targetGroup: [],
-                titlesGroup: ['待加分组', '当前分组'],
+                titlesGroup: ['Group to be added', 'Current grouping'],
                 listStyleGroup: {
                     width: '250px',
                     height: '200px'
                 },
                 originACL: [],
                 targetACL: [],
-                titlesACL: ['待加ACL', '当前ACL'],
+                titlesACL: ['ACL to be added', 'Current ACL'],
                 listStyleACL: {
                     width: '250px',
                     height: '200px'
@@ -332,7 +332,7 @@
             add (name) {
                 this.handleReset(name);
                 this.optionType = 'add';
-                this.optionTypeName = '添加';
+                this.optionTypeName = 'add';
                 this.formView = true;
                 this.originGroup = [];
                 this.targetGroup = [];
@@ -397,7 +397,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Edit Failure', res.data['message']);
@@ -419,7 +419,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Add Failure', res.data['message']);
@@ -436,7 +436,7 @@
                                 });
                         }
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data! ');
                     }
                 });
             },
@@ -444,7 +444,7 @@
                 this.axios.get(this.Global.serverSrc + this.apiService + '/reset/' + id).then(
                     res => {
                         if (res.data['status'] === true) {
-                            this.$Message.success('成功！');
+                            this.$Message.success('success! ');
                         } else {
                             this.nError('Reset Password Failure', res.data['message']);
                         }

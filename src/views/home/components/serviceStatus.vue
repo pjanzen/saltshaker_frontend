@@ -12,12 +12,12 @@ export default {
             jobData: this.tableList(),
             columns: [
                 {
-                    title: '服务',
+                    title: 'Service',
                     key: 'name',
                     sortable: true
                 },
                 {
-                    title: '状态',
+                    title: 'Status',
                     key: 'status',
                     sortable: true,
                     render: (h, params) => {

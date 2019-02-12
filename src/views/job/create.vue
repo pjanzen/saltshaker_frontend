@@ -6,44 +6,44 @@
                 @getProductEvent="getProductEvent"
                 ref="childrenMethods"
                 :productShow="true">
-            <Button slot="create" type="primary" @click="add('formValidate')">创建Job</Button>
+            <Button slot="create" type="primary" @click="add('formValidate')">Create a job</Button>
             <Modal slot="option" v-model="formView"  :title="optionTypeName" width="600px">
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="65">
-                    <FormItem label="Job名" prop="name">
-                        <Input v-model="formValidate.name" placeholder="输入Job名"></Input>
+                    <FormItem label="Job name" prop="name">
+                        <Input v-model="formValidate.name" placeholder="Enter the job name"></Input>
                     </FormItem>
-                    <FormItem label="描述" prop="description">
-                        <Input v-model="formValidate.description" placeholder="输入描述"></Input>
+                    <FormItem label="description" prop="description">
+                        <Input v-model="formValidate.description" placeholder="Input description"></Input>
                     </FormItem>
-                    <FormItem label="目标" prop="target">
+                    <FormItem label="target" prop="target">
                         <Select v-model="formValidate.target" multiple>
-                            <Option v-for="item in targetData" :value="item.id" :key="item.id" placeholder="选择目标">{{ item.name }}</Option>
+                            <Option v-for="item in targetData" :value="item.id" :key="item.id" placeholder="Select target">{{ item.name }}</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label="并行数">
+                    <FormItem label="Parallel number">
                          <Row>
                             <Col span="10">
                                 <InputNumber :min="0" v-model="formValidate.concurrent"></InputNumber>
                             </Col>
-                            <Col span="4" style="text-align: right; padding-right: 13px">并行间隔</Col>
+                            <Col span="4" style="text-align: right; padding-right: 13px">Parallel interval</Col>
                             <Col span="10">
-                                <InputNumber :min="0" v-model="formValidate.interval" placeholder="单位秒，默认60s"></InputNumber>
+                                <InputNumber :min="0" v-model="formValidate.interval" placeholder="Unit seconds, default 60s"></InputNumber>
                             </Col>
                          </Row>
                     </FormItem>
-                    <FormItem label="调度">
+                    <FormItem label="Scheduling">
                         <RadioGroup v-model="formValidate.scheduler">
-                            <Radio label="once">一次</Radio>
-                            <Radio label="period">周期性</Radio>
-                            <Radio label="crontab" disabled>计划任务</Radio>
+                            <Radio label="once">once</Radio>
+                            <Radio label="period">Periodic</Radio>
+                            <Radio label="crontab" disabled>Scheduled Tasks</Radio>
                         </RadioGroup>
                     </FormItem>
-                    <FormItem label="时间" v-show="formValidate.scheduler === 'once'">
+                    <FormItem label="time" v-show="formValidate.scheduler === 'once'">
                         <Row>
                             <Col span="6">
                                 <RadioGroup v-model="formValidate.once.type">
-                                    <Radio label="now">立即</Radio>
-                                    <Radio label="timing">定时</Radio>
+                                    <Radio label="now">immediately</Radio>
+                                    <Radio label="timing">timing</Radio>
                                 </RadioGroup>
                             </Col>
                             <Col span="8" v-if="formValidate.once.type === 'timing'">
@@ -59,24 +59,24 @@
                             </Col>
                         </Row>
                     </FormItem>
-                    <FormItem label="周期" v-show="formValidate.scheduler === 'period'">
+                    <FormItem label="cycle" v-show="formValidate.scheduler === 'period'">
                         <Col span="1">
-                            每
+                            each
                         </Col>
                         <Col span="10" style="padding-right: 20px">
                             <InputNumber :min="1" v-model="formValidate.period.interval"></InputNumber>
                         </Col>
                         <Col span="13">
                             <RadioGroup v-model="formValidate.period.type">
-                                <Radio label="second">秒</Radio>
-                                <Radio label="minute">分</Radio>
-                                <Radio label="hour">时</Radio>
-                                <Radio label="day">天</Radio>
-                                <Radio label="week">周</Radio>
+                                <Radio label="second">second</Radio>
+                                <Radio label="minute">minute</Radio>
+                                <Radio label="hour">hour</Radio>
+                                <Radio label="day">day</Radio>
+                                <Radio label="week">week</Radio>
                             </RadioGroup>
                         </Col>
                     </FormItem>
-                    <FormItem label="计划任务" v-show="formValidate.scheduler === 'crontab'">
+                    <FormItem label="Scheduled Tasks" v-show="formValidate.scheduler === 'crontab'">
                         <Col span="4">
                             <span style="padding-right: 3px">秒</span>
                             <Select v-model="formValidate.crontab.second" style="width:50px">
@@ -114,7 +114,7 @@
                             </Select>
                         </Col>
                     </FormItem>
-                    <FormItem label="类型">
+                    <FormItem label="Types of">
                         <RadioGroup v-model="formValidate.execute">
                             <span @click="handleSLS()"><Radio label="sls">SLS</Radio></span>
                             <span @click="handleShell()"><Radio label="shell">Shell</Radio></span>
@@ -122,9 +122,9 @@
                         </RadioGroup>
                     </FormItem>
                     <FormItem label="SLS" prop="sls" v-if="slsShow">
-                        <Input v-model="formValidate.sls" disabled placeholder="点击下面树型结构获取SLS文件"></Input>
+                        <Input v-model="formValidate.sls" disabled placeholder="Click on the tree structure below to get the SLS file."></Input>
                     </FormItem>
-                    <FormItem label="Git分支" prop="" v-if="slsShow">
+                    <FormItem label="Git branch" prop="" v-if="slsShow">
                         <Select v-model="branchName">
                             <Option v-for="item in branchData" :value="item" :key="item">{{ item }}</Option>
                         </Select>
@@ -155,16 +155,16 @@
                     <!--</FormItem>-->
                 </Form>
                 <div slot="footer">
-                    <!--<Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>-->
-                    <Button type="text" @click="handleCancel()" style="margin-left: 8px">取消</Button>
-                    <!--<Button type="text" @click="previous()" style="margin-left: 8px" v-show="previousShow">上一步</Button>-->
-                    <!--<Button type="primary" @click="next()">下一步</Button>-->
-                    <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+                    <!--<Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>-->
+                    <Button type="text" @click="handleCancel()" style="margin-left: 8px">cancel</Button>
+                    <!--<Button type="text" @click="previous()" style="margin-left: 8px" v-show="previousShow">Previous</Button>-->
+                    <!--<Button type="primary" @click="next()">Next step</Button>-->
+                    <Button type="primary" @click="handleSubmit('formValidate')">submit</Button>
                 </div>
             </Modal>
-            <Modal slot="option" v-model="job" title="删除Job" @on-ok="del()">
+            <Modal slot="option" v-model="job" title="Delete job" @on-ok="del()">
                 <div style="text-align:center">
-                    <p>确定删除 <span style="color: red">{{jobName}}</span> 吗？</p>
+                    <p>confirm delete <span style="color: red">{{jobName}}</span> 吗？</p>
                 </div>
             </Modal>
         </common-table>
@@ -212,7 +212,7 @@
                 timer: null,
                 cColumns: [
                     {
-                        title: 'Job 名',
+                        title: 'Job name',
                         key: 'name',
                         sortable: true,
                         render: (h, params) => {
@@ -228,12 +228,12 @@
                         }
                     },
                     {
-                        title: '描述',
+                        title: 'description',
                         key: 'description',
                         sortable: true
                     },
                     {
-                        title: '目标',
+                        title: 'Target',
                         key: 'target',
                         sortable: true,
                         render: (h, params) => {
@@ -249,22 +249,22 @@
                         }
                     },
                     {
-                        title: '调度',
+                        title: 'Scheduling',
                         key: 'scheduler',
                         sortable: true,
                         width: 100,
                         render: (h, params) => {
                             if (params.row.scheduler === 'once') {
-                                return '一次';
+                                return 'once';
                             } else if (params.row.scheduler === 'period') {
-                                return '周期';
+                                return 'cycle';
                             } else {
-                                return '计划任务';
+                                return 'Scheduled Tasks';
                             }
                         }
                     },
                     {
-                        title: '创建时间',
+                        title: 'Creation time',
                         key: 'timestamp',
                         sortable: true,
                         render: (h, params) => {
@@ -272,7 +272,7 @@
                         }
                     },
                     {
-                        title: '更新时间',
+                        title: 'Update time',
                         key: 'audit',
                         sortable: true,
                         render: (h, params) => {
@@ -282,7 +282,7 @@
                         }
                     },
                     {
-                        title: '状态',
+                        title: 'status',
                         key: 'status',
                         sortable: true,
                         width: 140,
@@ -304,7 +304,7 @@
                                         props: {
                                             'color': 'yellow'
                                         }
-                                    }, '并行暂停')
+                                    }, 'Parallel pause')
 //                                    h('Icon', {
 //                                        props: {
 //                                            'type': 'arrow-right-b',
@@ -325,7 +325,7 @@
                         }
                     },
                     {
-                        title: '操作',
+                        title: 'operating',
                         key: 'action',
                         width: 170,
                         align: 'center',
@@ -404,7 +404,7 @@
                                             this.formView = true;
                                         }
                                     }
-                                }, '编辑'),
+                                }, 'edit'),
                                 h('Button', {
                                     props: {
                                         type: 'default',
@@ -422,7 +422,7 @@
                                             });
                                         }
                                     }
-                                }, '详情'),
+                                }, 'details'),
                                 h('Dropdown', {
                                     props: {
                                         placement: 'bottom-end',
@@ -434,7 +434,7 @@
                                             type: 'default',
                                             size: 'small'
                                         }
-                                    }, '更多'),
+                                    }, 'more'),
                                     h('DropdownMenu', {
                                         slot: 'list'
                                     }, [
@@ -448,7 +448,7 @@
                                                     this.handleReopen();
                                                 }
                                             }
-                                        }, '重开'),
+                                        }, 'reopen'),
                                         h('DropdownItem', {
                                             props: {
                                                 disabled: concurrentPause
@@ -459,7 +459,7 @@
                                                     this.handlePause();
                                                 }
                                             }
-                                        }, '暂停并行'),
+                                        }, 'Pause parallel'),
                                         h('DropdownItem', {
                                             props: {
                                                 disabled: concurrentPlay
@@ -470,7 +470,7 @@
                                                     this.handlePlay();
                                                 }
                                             }
-                                        }, '继续并行'),
+                                        }, 'Continue parallel'),
                                         h('DropdownItem', {
                                             props: {
                                                 disabled: schedulerPause
@@ -481,7 +481,7 @@
                                                     this.handleSchedulerPause();
                                                 }
                                             }
-                                        }, '暂停周期'),
+                                        }, 'Pause cycle'),
                                         h('DropdownItem', {
                                             props: {
                                                 disabled: schedulerResume
@@ -492,7 +492,7 @@
                                                     this.handleSchedulerResume();
                                                 }
                                             }
-                                        }, '继续周期'),
+                                        }, 'Continue cycle'),
                                         h('DropdownItem', {
                                             props: {
                                                 divided: true
@@ -505,7 +505,7 @@
                                                     this.job = true;
                                                 }
                                             }
-                                        }, '删除')
+                                        }, 'delete')
                                     ])
                                 ])
                             ]);
@@ -517,7 +517,7 @@
                         return date && date.valueOf() < Date.now() - 86400000;
                     }
                 },
-                // 表单验证
+                // form validation
                 formValidate: {
                     name: '',
                     description: '',
@@ -549,32 +549,32 @@
                 },
                 ruleValidate: {
                     name: [
-                        { required: true, message: 'Job名不能为空', trigger: 'blur' }
+                        { required: true, message: 'Job name cannot be empty', trigger: 'blur' }
                     ],
                     description: [
-                        { required: true, message: '描述不能为空', trigger: 'blur' }
+                        { required: true, message: 'Description cannot be empty', trigger: 'blur' }
                     ],
                     target: [
-                        { required: true, type: 'array', min: 1, message: '请选择目标', trigger: 'change' }
+                        { required: true, type: 'array', min: 1, message: 'Please select a target', trigger: 'change' }
                     ],
                     sls: [
-                        { required: true, type: 'string', message: 'State SLS 不能为空', trigger: 'blur' }
+                        { required: true, type: 'string', message: 'State SLS Can not be empty', trigger: 'blur' }
                     ],
                     once: {
                         date: [
-                            { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
+                            { required: true, type: 'date', message: 'Please select a date', trigger: 'change' }
                         ],
                         time: [
-                            { required: true, type: 'string', message: '请选择时间', trigger: 'change' }
+                            { required: true, type: 'string', message: 'Please select time', trigger: 'change' }
                         ]
                     },
                     period: {
                         type: [
-                            { required: true, type: 'string', message: '请选择周期单位', trigger: 'change' }
+                            { required: true, type: 'string', message: 'Please select the period unit', trigger: 'change' }
                         ]
                     },
                     shell: [
-                        { required: true, type: 'string', message: 'Shell 代码不能为空', trigger: 'blur' }
+                        { required: true, type: 'string', message: 'Shell Code cannot be empty', trigger: 'blur' }
                     ]
                 },
                 options: {
@@ -659,7 +659,7 @@
             add (name) {
                 this.handleReset(name);
                 this.optionType = 'add';
-                this.optionTypeName = '创建';
+                this.optionTypeName = 'create';
                 this.formView = true;
                 this.formValidate.once.date = '';
                 this.formValidate.once.time = '';
@@ -712,7 +712,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Add Failure', res.data['message']);
@@ -729,7 +729,7 @@
                                 });
                         }
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data! ');
                     }
                 });
             },
@@ -834,7 +834,7 @@
                 this.axios.put(this.Global.serverSrc + 'period/concurrent/pause/' + this.id + '?product_id=' + this.productId).then(
                     res => {
                         if (res.data['status'] === true) {
-                            this.$Message.success('成功！');
+                            this.$Message.success('success! ');
                             this.tableList();
                         } else {
                             this.nError('Pause Failure', res.data['message']);
@@ -854,7 +854,7 @@
                 this.axios.put(this.Global.serverSrc + 'period/concurrent/play/' + this.id + '?product_id=' + this.productId).then(
                     res => {
                         if (res.data['status'] === true) {
-                            this.$Message.success('成功！');
+                            this.$Message.success('success! ');
                             this.tableList();
                         } else {
                             this.nError('Play Failure', res.data['message']);
@@ -874,7 +874,7 @@
                 this.axios.put(this.Global.serverSrc + 'period/scheduler/pause/' + this.id + '?product_id=' + this.productId).then(
                     res => {
                         if (res.data['status'] === true) {
-                            this.$Message.success('成功！');
+                            this.$Message.success('success! ');
                             this.tableList();
                         } else {
                             this.nError('Scheduler Pause Failure', res.data['message']);
@@ -894,7 +894,7 @@
                 this.axios.put(this.Global.serverSrc + 'period/scheduler/resume/' + this.id + '?product_id=' + this.productId).then(
                     res => {
                         if (res.data['status'] === true) {
-                            this.$Message.success('成功！');
+                            this.$Message.success('success! ');
                             this.tableList();
                         } else {
                             this.nError('Scheduler Resume Failure', res.data['message']);

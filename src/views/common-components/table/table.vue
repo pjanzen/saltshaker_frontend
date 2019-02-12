@@ -15,7 +15,7 @@
                         <div style="float: right;" >
                             <slot name="create"></slot>
                             <slot name="downMenu"></slot>
-                            <Button type="primary" @click="refresh()">刷新</Button>
+                            <Button type="primary" @click="refresh()">Refresh</Button>
                         </div>
                     </Row>
                     <Row>
@@ -28,9 +28,9 @@
                             </Input>
                         </div>
                         <div style="margin-bottom: -10px;">
-                            <Button type="primary" @click="exportData(1)">导出数据</Button>
+                            <Button type="primary" @click="exportData(1)">Export data</Button>
                             <Poptip placement="bottom-start">
-                                <Button type="primary">自定义列</Button>
+                                <Button type="primary">Custom column</Button>
                                 <div slot="content">
                                   <ul>
                                     <li v-for="(c, i) in nColumns" v-if="i > 0" :key="i">
@@ -41,7 +41,7 @@
                             </Poptip>
                             <Dropdown>
                                 <Button type="primary">
-                                    显示条数
+                                    Display number
                                     <Icon type="arrow-down-b"></Icon>
                                 </Button>
                                 <DropdownMenu slot="list">
@@ -58,7 +58,7 @@
                                         <div @click="customPage(100)">100</div>
                                     </DropdownItem>
                                     <DropdownItem divided>
-                                        <div @click="customPage(pageCount)">全部</div>
+                                        <div @click="customPage(pageCount)">All</div>
                                     </DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
@@ -338,7 +338,7 @@
                     res => {
                         if (res.data['status'] === true) {
                             this.tableData.splice(this.delIndex, 1);
-                            this.$Message.success('删除成功！');
+                            this.$Message.success('success! ');
                             this.tableList();
                         } else {
                             this.nError('Delete Failure', res.data['message']);
@@ -363,7 +363,7 @@
                     res => {
                         if (res.data['status'] === true) {
                             this.tableData.splice(this.delIndex, 1);
-                            this.$Message.success('Kill成功！');
+                            this.$Message.success('Successfully killed job! ');
                             this.tableList();
                         } else {
                             this.nError('Delete Failure', res.data['message']);

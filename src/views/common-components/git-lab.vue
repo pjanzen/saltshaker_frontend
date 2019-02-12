@@ -14,7 +14,7 @@
                         <div style="float: right;" >
                             <slot name="create"></slot>
                             <slot name="downMenu"></slot>
-                            <Button type="primary" @click="refresh()">刷新</Button>
+                            <Button type="primary" @click="refresh()">Refresh</Button>
                         </div>
                     </Row>
                     <Row>
@@ -36,11 +36,11 @@
                             <Card dis-hover>
                                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="46">
                                     <FormItem label="文件" prop="fileDir">
-                                        <Input v-model="formValidate.fileDir" :disabled="inputDisabled" placeholder="点击左侧树型结构获取目录，输入文件名或者路径，如：a/b/top.sls，目录不存在自动创建" ></Input>
+                                        <Input v-model="formValidate.fileDir" :disabled="inputDisabled" placeholder="Click the tree structure on the left to get the directory, enter the file name or path, such as: a / b / top.sls, the directory does not exist automatically created" ></Input>
                                     </FormItem>
                                     <FormItem label="内容" prop="code">
                                         <Tabs v-model="tab" :style="[h]">
-                                            <TabPane  label="从文本输入框创建" name="text">
+                                            <TabPane  label="Create from text input box" name="text">
                                                 <MonacoEditor
                                                     height="500"
                                                     width="100%"
@@ -57,23 +57,23 @@
                                                     >
                                                 </MonacoEditor>
                                                 <br>
-                                                <Button type="primary" @click="handleCreate('formValidate')" :disabled="createDisabled">创建</Button>
-                                                <Button type="primary" @click="handleEdit('formValidate')" :disabled="editDisabled">更新</Button>
+                                                <Button type="primary" @click="handleCreate('formValidate')" :disabled="createDisabled">create</Button>
+                                                <Button type="primary" @click="handleEdit('formValidate')" :disabled="editDisabled">update</Button>
                                                 <Poptip
                                                     confirm
                                                     :title="title"
                                                     @on-popper-show="PopperShow()"
                                                     @on-ok="handleDelete('formValidate')">
-                                                    <Button type="error" :disabled="deleteDisabled">删除</Button>
+                                                    <Button type="error" :disabled="deleteDisabled">delete</Button>
                                                 </Poptip>
                                             </TabPane>
-                                            <TabPane label="封装SLS" name="sls">
+                                            <TabPane label="Package SLS" name="sls">
                                                 <Row :gutter="0">
                                                     <Col span="3">
-                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('file_managed')">文件管理</Button></p>
-                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('file_directory')">目录管理</Button></p>
-                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('cmd_run')">执行命令</Button></p>
-                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('pkg_installed')">安装软件包</Button></p>
+                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('file_managed')">File managed</Button></p>
+                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('file_directory')">File directory</Button></p>
+                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('cmd_run')">Command run</Button></p>
+                                                        <p><Button type="primary" shape="circle" size="small" @click="handleAddStep('pkg_installed')">pkg installed</Button></p>
                                                     </Col>
                                                     <Col span="1">
                                                         <hr style="border:1px dashed #eee; height: 620px; width: 0px;"></hr>
@@ -81,27 +81,27 @@
                                                     <Col span="20">
                                                         <Timeline>
                                                             <TimelineItem color="blue">
-                                                                <p class="time">开始</p>
+                                                                <p class="time">start</p>
                                                                 <li v-for="(item, index) in steps">
                                                                     <Tag v-if="item.id !== ''" closable color="blue" :name="item.id" @on-close="handleDelStep"><a @click="handleSLS(item.id, item.state_name, index)">{{ item.show_name }}</a></Tag>
                                                                     <Tag v-if="item.id === ''" closable color="yellow" :name="item.id" @on-close="handleDelStep"><a @click="handleSLS(item.id, item.state_name, index)">{{ item.show_name }}</a></Tag>
                                                                 </li>
                                                             </TimelineItem>
-                                                            <TimelineItem color="green">结束</TimelineItem>
+                                                            <TimelineItem color="green">end</TimelineItem>
                                                         </Timeline>
-                                                        <Button type="primary" @click="handleSLSCreate('formValidate')" :disabled="createDisabled">创建</Button>
-                                                        <Button type="primary" @click="handleEdit('formValidate')" :disabled="editDisabled">更新</Button>
+                                                        <Button type="primary" @click="handleSLSCreate('formValidate')" :disabled="createDisabled">create</Button>
+                                                        <Button type="primary" @click="handleEdit('formValidate')" :disabled="editDisabled">update</Button>
                                                         <Poptip
                                                             confirm
                                                             :title="title"
                                                             @on-popper-show="PopperShow()"
                                                             @on-ok="handleDelete('formValidate')">
-                                                            <Button type="error" :disabled="deleteDisabled">删除</Button>
+                                                            <Button type="error" :disabled="deleteDisabled">delete</Button>
                                                         </Poptip>
                                                     </Col>
                                                 </Row>
                                             </TabPane>
-                                            <TabPane label="从文件创建" name="upload" :disabled="uploadDisabled">
+                                            <TabPane label="Upload" name="upload" :disabled="uploadDisabled">
                                                 <div style="padding: 1px">
                                                 <Upload
                                                     multiple
@@ -114,7 +114,7 @@
                                                     :before-upload="beforeUpdate">
                                                     <div style="padding: 10px 0px">
                                                         <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-                                                        <p>点击或者拖拽上传</p>
+                                                        <p>Click or drag and drop to upload</p>
                                                     </div>
                                                 </Upload>
                                                     </div>
@@ -128,99 +128,99 @@
                 </Card>
             </Col>
         </Row>
-        <Modal v-model="fileManagedFormView"  title="封装文件管理">
+        <Modal v-model="fileManagedFormView"  title="File managed">
             <Form ref="fileManagedFormValidate" :model="fileManagedFormValidate" :rules="fileManagedRuleValidate" :label-width="70">
-                <FormItem label="名称" prop="name">
-                    <Input v-model="fileManagedFormValidate.name" placeholder="输入名称"></Input>
+                <FormItem label="name" prop="name">
+                    <Input v-model="fileManagedFormValidate.name" placeholder="file managed name"></Input>
                 </FormItem>
-                <FormItem label="源文件" prop="source">
-                    <Input v-model="fileManagedFormValidate.source" placeholder="输入源文件"></Input>
+                <FormItem label="Source file" prop="source">
+                    <Input v-model="fileManagedFormValidate.source" placeholder="Source file"></Input>
                 </FormItem>
-                <FormItem label="目标文件" prop="destination">
-                    <Input v-model="fileManagedFormValidate.destination" placeholder="输入目标文件"></Input>
+                <FormItem label="Destination" prop="destination">
+                    <Input v-model="fileManagedFormValidate.destination" placeholder="Destination file"></Input>
                 </FormItem>
-                <FormItem label="用户" prop="user">
-                    <Input v-model="fileManagedFormValidate.user" placeholder="输入用户"></Input>
+                <FormItem label="User" prop="user">
+                    <Input v-model="fileManagedFormValidate.user" placeholder="Enter user"></Input>
                 </FormItem>
-                <FormItem label="组" prop="group">
-                    <Input v-model="fileManagedFormValidate.group" placeholder="输入组"></Input>
+                <FormItem label="Group" prop="group">
+                    <Input v-model="fileManagedFormValidate.group" placeholder="Enter group"></Input>
                 </FormItem>
-                <FormItem label="权限位" prop="mode">
-                    <Input v-model="fileManagedFormValidate.mode" placeholder="输入权限位，如：644"></Input>
+                <FormItem label="File permissions" prop="mode">
+                    <Input v-model="fileManagedFormValidate.mode" placeholder="Enter permission bits, such as: 644"></Input>
                 </FormItem>
-                <FormItem label="模板">
-                    <Input v-model="fileManagedFormValidate.template" placeholder="输入模板，如：jinja"></Input>
+                <FormItem label="template">
+                    <Input v-model="fileManagedFormValidate.template" placeholder="Input template, such as: jinja"></Input>
                 </FormItem>
             </Form>
             <div slot="footer">
-                <Button type="ghost" @click="handleReset('fileManagedFormValidate')" style="margin-left: 8px">重置</Button>
-                <Button type="primary" @click="handleFileManagedSubmit('fileManagedFormValidate')">添加</Button>
+                <Button type="ghost" @click="handleReset('fileManagedFormValidate')" style="margin-left: 8px">Reset</Button>
+                <Button type="primary" @click="handleFileManagedSubmit('fileManagedFormValidate')">Submit</Button>
             </div>
         </Modal>
-        <Modal v-model="fileDirectoryFormView"  title="封装目录管理">
+        <Modal v-model="fileDirectoryFormView"  title="Package directory">
             <Form ref="fileDirectoryFormValidate" :model="fileDirectoryFormValidate" :rules="fileDirectoryRuleValidate" :label-width="80">
-                <FormItem label="名称" prop="name">
-                    <Input v-model="fileDirectoryFormValidate.name" placeholder="输入名称"></Input>
+                <FormItem label="name" prop="name">
+                    <Input v-model="fileDirectoryFormValidate.name" placeholder="Enter a name"></Input>
                 </FormItem>
-                <FormItem label="目标文件" prop="destination">
-                    <Input v-model="fileDirectoryFormValidate.destination" placeholder="输入目标文件"></Input>
+                <FormItem label="Target file" prop="destination">
+                    <Input v-model="fileDirectoryFormValidate.destination" placeholder="Enter the target file"></Input>
                 </FormItem>
-                <FormItem label="用户" prop="user">
-                    <Input v-model="fileDirectoryFormValidate.user" placeholder="输入用户"></Input>
+                <FormItem label="user" prop="user">
+                    <Input v-model="fileDirectoryFormValidate.user" placeholder="username"></Input>
                 </FormItem>
-                <FormItem label="组" prop="group">
-                    <Input v-model="fileDirectoryFormValidate.group" placeholder="输入组"></Input>
+                <FormItem label="group" prop="group">
+                    <Input v-model="fileDirectoryFormValidate.group" placeholder="group"></Input>
                 </FormItem>
-                <FormItem label="权限位" prop="mode">
-                    <Input v-model="fileDirectoryFormValidate.mode" placeholder="输入权限位，如：644"></Input>
+                <FormItem label="file permissions" prop="mode">
+                    <Input v-model="fileDirectoryFormValidate.mode" placeholder="Enter permission bits, such as: 644"></Input>
                 </FormItem>
-                <FormItem label="创建父目录">
+                <FormItem label="Create a parent directory">
                     <RadioGroup v-model="fileDirectoryFormValidate.makedirs">
-                        <Radio label="True">是</Radio>
-                        <Radio label="False">否</Radio>
+                        <Radio label="True">Yes</Radio>
+                        <Radio label="False">No</Radio>
                     </RadioGroup>
                 </FormItem>
             </Form>
             <div slot="footer">
-                <Button type="ghost" @click="handleReset('fileDirectoryFormValidate')" style="margin-left: 8px">重置</Button>
-                <Button type="primary" @click="handleFileDirectorySubmit('fileDirectoryFormValidate')">添加</Button>
+                <Button type="ghost" @click="handleReset('fileDirectoryFormValidate')" style="margin-left: 8px">Reset</Button>
+                <Button type="primary" @click="handleFileDirectorySubmit('fileDirectoryFormValidate')">Submit</Button>
             </div>
         </Modal>
-        <Modal v-model="cmdRunFormView"  title="封装执行命令">
+        <Modal v-model="cmdRunFormView"  title="cmd run">
             <Form ref="cmdRunFormValidate" :model="cmdRunFormValidate" :rules="cmdRunRuleValidate" :label-width="70">
-                <FormItem label="名称" prop="name">
-                    <Input v-model="cmdRunFormValidate.name" placeholder="输入名称"></Input>
+                <FormItem label="name" prop="name">
+                    <Input v-model="cmdRunFormValidate.name" placeholder="Enter name"></Input>
                 </FormItem>
-                <FormItem label="命令" prop="cmd">
-                    <Input v-model="cmdRunFormValidate.cmd" type="textarea" :autosize="true" placeholder="输入命令"></Input>
+                <FormItem label="command" prop="cmd">
+                    <Input v-model="cmdRunFormValidate.cmd" type="textarea" :autosize="true" placeholder="input command"></Input>
                 </FormItem>
-                <FormItem label="环境变量" prop="env">
-                    <Input v-model="cmdRunFormValidate.env" type="textarea" :autosize="true"  placeholder="输入目标环境变量"></Input>
+                <FormItem label="environment" prop="env">
+                    <Input v-model="cmdRunFormValidate.env" type="textarea" :autosize="true"  placeholder="input environment"></Input>
                 </FormItem>
-                <FormItem label="除非">
-                    <Input v-model="cmdRunFormValidate.unless" type="textarea" :autosize="true" placeholder="输入目标环境变量"></Input>
+                <FormItem label="unless">
+                    <Input v-model="cmdRunFormValidate.unless" type="textarea" :autosize="true" placeholder="Enter target environment variable"></Input>
                 </FormItem>
-                <FormItem label="依赖">
-                    <Input v-model="cmdRunFormValidate.require" placeholder="输入依赖"></Input>
+                <FormItem label="require">
+                    <Input v-model="cmdRunFormValidate.require" placeholder="Input dependency"></Input>
                 </FormItem>
             </Form>
             <div slot="footer">
-                <Button type="ghost" @click="handleReset('cmdRunFormValidate')" style="margin-left: 8px">重置</Button>
-                <Button type="primary" @click="handleCmdRunSubmit('cmdRunFormValidate')">添加</Button>
+                <Button type="ghost" @click="handleReset('cmdRunFormValidate')" style="margin-left: 8px">Reset</Button>
+                <Button type="primary" @click="handleCmdRunSubmit('cmdRunFormValidate')">Submit</Button>
             </div>
         </Modal>
-        <Modal v-model="pkgInstalledFormView"  title="封装安装软件包">
+        <Modal v-model="pkgInstalledFormView"  title="Package installation package">
             <Form ref="pkgInstalledFormValidate" :model="pkgInstalledFormValidate" :rules="pkgInstalledRuleValidate" :label-width="70">
-                <FormItem label="名称" prop="name">
-                    <Input v-model="pkgInstalledFormValidate.name" placeholder="输入名称"></Input>
+                <FormItem label="name" prop="name">
+                    <Input v-model="pkgInstalledFormValidate.name" placeholder="input name"></Input>
                 </FormItem>
-                <FormItem label="包名" prop="pkgs">
-                    <Input v-model="pkgInstalledFormValidate.pkgs" type="textarea" :autosize="{minRows: 5}" placeholder="输入包名，多个软件包请换行"></Input>
+                <FormItem label="package" prop="pkgs">
+                    <Input v-model="pkgInstalledFormValidate.pkgs" type="textarea" :autosize="{minRows: 5}" placeholder="Enter the package name"></Input>
                 </FormItem>
             </Form>
             <div slot="footer">
-                <Button type="ghost" @click="handleReset('pkgInstalledFormValidate')" style="margin-left: 8px">重置</Button>
-                <Button type="primary" @click="handlePkgInstalledSubmit('pkgInstalledFormValidate')">添加</Button>
+                <Button type="ghost" @click="handleReset('pkgInstalledFormValidate')" style="margin-left: 8px">Reset</Button>
+                <Button type="primary" @click="handlePkgInstalledSubmit('pkgInstalledFormValidate')">Submit</Button>
             </div>
         </Modal>
     </div>
@@ -239,16 +239,16 @@
         data () {
             const validateName = (rule, value, callback) => {
                 if (value === '') {
-                    callback(new Error('名称不能为空'));
+                    callback(new Error('Name is required'));
                 } else {
                     // 进行中文的验证
                     if (/[\u4E00-\u9FA5]/i.test(value)) {
-                        callback(new Error('名称不能为中文'));
+                        callback(new Error('The name cannot be Chinese'));
                     }
                     let status = true;
                     this.steps.map(item => {
                         if (value === item.id) {
-                            callback(new Error('同一个SLS文件,名称不能重复'));
+                            callback(new Error('The same SLS file, the name cannot be repeated'));
                             status = false;
                         }
                     });
@@ -297,10 +297,10 @@
                 },
                 ruleValidate: {
                     path: [
-                        { required: true, message: '请输选择要执行的SLS', trigger: 'blur' }
+                        { required: true, message: 'Please select the SLS to be executed', trigger: 'blur' }
                     ],
                     fileDir: [
-                        { required: true, message: '点击左侧树型结构获取目录，创建请输入文件名、上传请输入文件路径', trigger: 'blur' }
+                        { required: true, message: 'Click the tree structure on the left to get the directory, create a file name, upload, and enter the file path', trigger: 'blur' }
                     ]
                 },
                 steps: [],
@@ -319,19 +319,19 @@
                         { required: true, validator: validateName, trigger: 'blur' }
                     ],
                     source: [
-                        { required: true, message: '源文件不能为空', trigger: 'blur' }
+                        { required: true, message: 'Source file cannot be empty', trigger: 'blur' }
                     ],
                     destination: [
-                        { required: true, message: '目标文件不能为空', trigger: 'blur' }
+                        { required: true, message: 'Target file cannot be empty', trigger: 'blur' }
                     ],
                     user: [
-                        { required: true, message: '用户不能为空', trigger: 'blur' }
+                        { required: true, message: 'User cannot be empty', trigger: 'blur' }
                     ],
                     group: [
-                        { required: true, message: '组不能为空', trigger: 'blur' }
+                        { required: true, message: 'Group cannot be empty', trigger: 'blur' }
                     ],
                     mode: [
-                        { required: true, message: '权限位不能为空', trigger: 'blur' }
+                        { required: true, message: 'Permission bit cannot be empty', trigger: 'blur' }
                     ]
                 },
                 fileDirectoryFormValidate: {
@@ -347,16 +347,16 @@
                         { required: true, validator: validateName, trigger: 'blur' }
                     ],
                     destination: [
-                        { required: true, message: '目录地址不能为空', trigger: 'blur' }
+                        { required: true, message: 'Directory cannot be empty', trigger: 'blur' }
                     ],
                     user: [
-                        { required: true, message: '用户不能为空', trigger: 'blur' }
+                        { required: true, message: 'User cannot be empty', trigger: 'blur' }
                     ],
                     group: [
-                        { required: true, message: '组不能为空', trigger: 'blur' }
+                        { required: true, message: 'Group cannot be empty', trigger: 'blur' }
                     ],
                     mode: [
-                        { required: true, message: '权限位不能为空', trigger: 'blur' }
+                        { required: true, message: 'Permission bit cannot be empty', trigger: 'blur' }
                     ]
                 },
                 cmdRunFormValidate: {
@@ -371,7 +371,7 @@
                         { required: true, validator: validateName, trigger: 'blur' }
                     ],
                     cmd: [
-                        { required: true, message: '命令不能为空', trigger: 'blur' }
+                        { required: true, message: 'Command cannot be empty', trigger: 'blur' }
                     ]
                 },
                 pkgInstalledFormValidate: {
@@ -383,7 +383,7 @@
                         { required: true, validator: validateName, trigger: 'blur' }
                     ],
                     pkgs: [
-                        { required: true, message: '软件包不能为空', trigger: 'blur' }
+                        { required: true, message: 'Package cannot be empty', trigger: 'blur' }
                     ]
                 },
                 title: '',
@@ -647,7 +647,7 @@
                         if (res.data['status'] === true) {
                             this.result = res.data['data'];
                             this.edit = false;
-                            this.$Message.success('更新成功！');
+                            this.$Message.success('success! ');
                             // 调用hook进行更新
                             this.handleHook();
                             // this.fileList();
@@ -667,7 +667,7 @@
             },
             // 删除提示
             PopperShow () {
-                this.title = '你确定删除 ' + this.formValidate.fileDir + ' 这个文件吗?';
+                this.title = 'You are sure to delete ' + this.formValidate.fileDir + ' This file?';
             },
             handleDelete () {
                 let postData = {
@@ -681,7 +681,7 @@
                         if (res.data['status'] === true) {
                             this.result = res.data['data'];
                             this.edit = false;
-                            this.$Message.success('删除成功！');
+                            this.$Message.success('success! ');
                             // 刷新gitlab file list
                             this.fileList();
                             this.filePath = [];
@@ -716,7 +716,7 @@
                                 if (res.data['status'] === true) {
                                     this.result = res.data['data'];
                                     this.edit = false;
-                                    this.$Message.success('创建成功！');
+                                    this.$Message.success('success! ');
                                     // 刷新gitlab file list
                                     this.fileList();
                                     this.filePath = [];
@@ -736,7 +736,7 @@
                                 this.nError('Create Failure', errInfo);
                             });
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data! ');
                     }
                 });
             },
@@ -778,7 +778,7 @@
             },
             // 上传成功
             UploadSuccess () {
-                this.$Message.success('上传成功！');
+                this.$Message.success('Uploaded successfully! ');
                 this.fileList();
             },
             // 上传失败
@@ -864,30 +864,30 @@
                 if (state === 'file_managed') {
                     step = {
                         'state_name': 'file_managed',
-                        'another_name': '文件管理',
+                        'another_name': 'document_management',
                         'id': '',
-                        'show_name': '文件管理'
+                        'show_name': 'document_management'
                     };
                 } else if (state === 'file_directory') {
                     step = {
                         'state_name': 'file_directory',
-                        'another_name': '目录管理',
+                        'another_name': 'document_management',
                         'id': '',
-                        'show_name': '目录管理'
+                        'show_name': 'document_management'
                     };
                 } else if (state === 'cmd_run') {
                     step = {
                         'state_name': 'cmd_run',
-                        'another_name': '执行命令',
+                        'another_name': 'execute_order',
                         'id': '',
-                        'show_name': '执行命令'
+                        'show_name': 'execute_order'
                     };
                 } else if (state === 'pkg_installed') {
                     step = {
                         'state_name': 'pkg_installed',
-                        'another_name': '安装软件包',
+                        'another_name': 'installation_package',
                         'id': '',
-                        'show_name': '安装软件包'
+                        'show_name': 'installation_package'
                     };
                 }
                 this.steps.push(step);
@@ -1025,7 +1025,7 @@
                             res => {
                                 if (res.data['status'] === true) {
                                     this.result = res.data['data'];
-                                    this.$Message.success('创建成功！');
+                                    this.$Message.success('success! ');
                                     // 刷新gitlab file list
                                     this.fileList();
                                     this.filePath = [];
@@ -1049,7 +1049,7 @@
                                 this.nError('Create Failure', errInfo);
                             });
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data! ');
                     }
                 });
             }

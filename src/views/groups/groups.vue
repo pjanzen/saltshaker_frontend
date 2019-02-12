@@ -1,16 +1,16 @@
 <template>
     <div>
         <common-table :cColumns="cColumns" :apiService="apiService" @getProductEvent="getProductEvent" :productShow="true" ref="childrenMethods">
-            <Button slot="create" type="primary" @click="add('formValidate')">创建分组</Button>
+            <Button slot="create" type="primary" @click="add('formValidate')">Create a group</Button>
             <Modal slot="option" v-model="formView"  :title="optionTypeName" width="650px">
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="60">
-                    <FormItem label="分组名" prop="name">
-                        <Input v-model="formValidate.name" placeholder="输入用户名"></Input>
+                    <FormItem label="Group name" prop="name">
+                        <Input v-model="formValidate.name" placeholder="Enter group name"></Input>
                     </FormItem>
-                    <FormItem label="描述" prop="description">
-                        <Input v-model="formValidate.description" placeholder="输入描述"></Input>
+                    <FormItem label="description" prop="description">
+                        <Input v-model="formValidate.description" placeholder="Group description"></Input>
                     </FormItem>
-                    <FormItem label="主机" prop="host">
+                    <FormItem label="Host" prop="host">
                         <Transfer
                             :data="originMinion"
                             :target-keys="targetMinion"
@@ -20,10 +20,10 @@
                             filterable
                             @on-change="handleChange">
                             <!--<div :style="{float: 'right', margin: '5px'}">-->
-                                <!--<Button type="ghost" size="small" @click="reloadMockData">刷新</Button>-->
+                                <!--<Button type="ghost" size="small" @click="reloadMockData">Refresh</Button>-->
                             <!--</div>-->
                             <!--<div :style="{float: 'left', margin: '5px'}">-->
-                                <!--<Select style="width:176px" size="small" v-model="groupsId" placeholder="请选择分组">-->
+                                <!--<Select style="width:176px" size="small" v-model="groupsId" placeholder="Please select a group">-->
                                     <!--<Option v-for="item in groupsData" :value="item.id" :key="item.id">{{ item.name }}</Option>-->
                                 <!--</Select>-->
                             <!--</div>-->
@@ -31,8 +31,8 @@
                     </FormItem>
                 </Form>
                 <div slot="footer">
-                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
-                    <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
+                    <Button type="primary" @click="handleSubmit('formValidate')">submit</Button>
                 </div>
             </Modal>
         </common-table>
@@ -61,7 +61,7 @@
                 optionTypeName: '',
                 cColumns: [
                     {
-                        title: '分组名',
+                        title: 'Group name',
                         key: 'name',
                         sortable: true,
                         render: (h, params) => {
@@ -77,12 +77,12 @@
                         }
                     },
                     {
-                        title: '描述',
+                        title: 'description',
                         key: 'description',
                         sortable: true
                     },
                     {
-                        title: '主机',
+                        title: 'Host',
                         key: 'minion',
                         sortable: true,
                         render: (h, params) => {
@@ -98,7 +98,7 @@
                         }
                     },
                     {
-                        title: '操作',
+                        title: 'operating',
                         key: 'action',
                         width: 123,
                         align: 'center',
@@ -126,11 +126,11 @@
                                             this.formValidate.productId = params.row.product_id;
                                         }
                                     }
-                                }, '编辑'),
+                                }, 'edit'),
                                 h('Poptip', {
                                     props: {
                                         confirm: true,
-                                        title: '确定要删除 ' + params.row.name + ' 吗?',
+                                        title: 'Make sure you want to delete ' + params.row.name + ' ?',
                                         transfer: true,
                                         placement: 'top-end'
                                     },
@@ -147,7 +147,7 @@
                                             type: 'error',
                                             size: 'small'
                                         }
-                                    }, '删除')
+                                    }, 'delete')
                                 ])
                             ]);
                         }
@@ -161,16 +161,16 @@
                 },
                 ruleValidate: {
                     name: [
-                        { required: true, message: '分组名不能为空', trigger: 'blur' }
+                        { required: true, message: 'Group name cannot be empty', trigger: 'blur' }
                     ],
                     description: [
-                        { required: true, message: '描述不能为空', trigger: 'blur' }
+                        { required: true, message: 'Description cannot be empty', trigger: 'blur' }
                     ]
                 },
                 // 穿梭框
                 originMinion: [],
                 targetMinion: [],
-                titles: ['待加主机', '当前分组'],
+                titles: ['To be added to the host', 'Current grouping'],
                 listStyle: {
                     width: '250px',
                     height: '230px'
@@ -204,7 +204,7 @@
             add (name) {
                 this.handleReset(name);
                 this.optionType = 'add';
-                this.optionTypeName = '添加';
+                this.optionTypeName = 'add';
                 this.formView = true;
                 this.originMinion = [];
                 this.targetMinion = [];
@@ -227,7 +227,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Edit Failure', res.data['message']);
@@ -249,7 +249,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Add Failure', res.data['message']);
@@ -266,7 +266,7 @@
                                 });
                         }
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data! ');
                     }
                 });
             },

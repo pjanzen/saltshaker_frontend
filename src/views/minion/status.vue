@@ -28,7 +28,7 @@
                         sortable: true
                     },
                     {
-                        title: '状态',
+                        title: 'status',
                         key: 'status',
                         sortable: true,
                         render: (h, params) => {

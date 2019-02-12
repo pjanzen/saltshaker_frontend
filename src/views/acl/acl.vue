@@ -1,30 +1,30 @@
 <template>
     <div>
         <common-table :cColumns="cColumns" :apiService="apiService" @getProductEvent="getProductEvent" :productShow="true" ref="childrenMethods">
-            <Button slot="create" type="primary" @click="add('formValidate')">创建ACL</Button>
+            <Button slot="create" type="primary" @click="add('formValidate')">Create an ACL</Button>
             <Modal slot="option" v-model="formView"  :title="optionTypeName">
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="60">
-                    <FormItem label="ACL名" prop="name">
-                        <Input v-model="formValidate.name" placeholder="输入用户名"></Input>
+                    <FormItem label="ACL name" prop="name">
+                        <Input v-model="formValidate.name" placeholder="Enter your user name"></Input>
                     </FormItem>
-                    <FormItem label="描述" prop="description">
-                        <Input v-model="formValidate.description" placeholder="输入描述"></Input>
+                    <FormItem label="description" prop="description">
+                        <Input v-model="formValidate.description" placeholder="Input description"></Input>
                     </FormItem>
-                    <FormItem label="产品线" prop="productId">
-                        <Select v-model="formValidate.productId" placeholder="选择产品线">
+                    <FormItem label="product line" prop="productId">
+                        <Select v-model="formValidate.productId" placeholder="Select product line">
                             <Option v-for="item in productData" :value="item.id" :key="item.id">{{ item.name }}</Option>
                         </Select>
                     </FormItem>
-                    <FormItem label="允许" prop="allow">
-                        <Input v-model.trim="formValidate.allow" type="textarea" :autosize="{minRows: 2,maxRows: 5}"  placeholder="输入允许信息"></Input>
+                    <FormItem label="allow" prop="allow">
+                        <Input v-model.trim="formValidate.allow" type="textarea" :autosize="{minRows: 2,maxRows: 5}"  placeholder="Enter permission information"></Input>
                     </FormItem>
-                    <FormItem label="拒绝" prop="deny">
-                        <Input v-model.trim="formValidate.deny" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="输入拒绝信息"></Input>
+                    <FormItem label="Refuse" prop="deny">
+                        <Input v-model.trim="formValidate.deny" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter rejection information"></Input>
                     </FormItem>
                 </Form>
                 <div slot="footer">
-                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</Button>
-                    <Button type="primary" @click="handleSubmit('formValidate')">提交</Button>
+                    <Button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">Reset</Button>
+                    <Button type="primary" @click="handleSubmit('formValidate')">Submit</Button>
                 </div>
             </Modal>
         </common-table>
@@ -52,7 +52,7 @@
                 optionTypeName: '',
                 cColumns: [
                     {
-                        title: 'ACL名',
+                        title: 'ACL name',
                         key: 'name',
                         sortable: true,
                         render: (h, params) => {
@@ -68,7 +68,7 @@
                         }
                     },
                     {
-                        title: '描述',
+                        title: 'description',
                         key: 'description',
                         sortable: true
                     },
@@ -80,7 +80,7 @@
                             return h('Poptip', {
                                 props: {
                                     trigger: 'hover',
-                                    title: '允许列表',
+                                    title: 'Allow list',
                                     placement: 'bottom'
                                 }
                             }, [
@@ -101,14 +101,14 @@
                         }
                     },
                     {
-                        title: '拒绝',
+                        title: 'Refuse',
                         key: 'deny',
                         sortable: true,
                         render: (h, params) => {
                             return h('Poptip', {
                                 props: {
                                     trigger: 'hover',
-                                    title: '拒绝列表',
+                                    title: 'Reject list',
                                     placement: 'bottom'
                                 }
                             }, [
@@ -148,7 +148,7 @@
                                             this.formView = true;
                                             this.handleReset('formValidate');
                                             this.optionType = 'edit';
-                                            this.optionTypeName = '编辑';
+                                            this.optionTypeName = 'edit';
                                             this.id = params.row.id;
                                             this.formValidate.name = params.row.name;
                                             this.formValidate.description = params.row.description;
@@ -161,7 +161,7 @@
                                 h('Poptip', {
                                     props: {
                                         confirm: true,
-                                        title: '确定要删除 ' + params.row.name + ' 吗?',
+                                        title: 'Your sure you want to delete ' + params.row.name + '?',
                                         transfer: true,
                                         placement: 'top-end'
                                     },
@@ -194,13 +194,13 @@
                 },
                 ruleValidate: {
                     name: [
-                        { required: true, message: 'ACL名不能为空', trigger: 'blur' }
+                        { required: true, message: 'ACL name cannot be empty', trigger: 'blur' }
                     ],
                     description: [
-                        { required: true, message: '描述不能为空', trigger: 'blur' }
+                        { required: true, message: 'Description cannot be empty', trigger: 'blur' }
                     ],
                     productId: [
-                        { required: true, message: '产品线不能为空', trigger: 'change' }
+                        { required: true, message: 'Product line cannot be empty', trigger: 'change' }
                     ]
                 }
             };
@@ -226,7 +226,7 @@
             add (name) {
                 this.handleReset(name);
                 this.optionType = 'add';
-                this.optionTypeName = '添加';
+                this.optionTypeName = 'Add to';
                 this.formView = true;
             },
             // 表单提
@@ -247,7 +247,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Edit Failure', res.data['message']);
@@ -269,7 +269,7 @@
                                 res => {
                                     if (res.data['status'] === true) {
                                         this.formView = false;
-                                        this.$Message.success('成功！');
+                                        this.$Message.success('success! ');
                                         this.tableList();
                                     } else {
                                         this.nError('Add Failure', res.data['message']);
@@ -286,7 +286,7 @@
                                 });
                         }
                     } else {
-                        this.$Message.error('请检查表单数据！');
+                        this.$Message.error('Please check the form data! ');
                     }
                 });
             },
